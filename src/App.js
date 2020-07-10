@@ -1,25 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
+import { Provider } from 'react-redux';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
-function App() {
+// Pages
+import ShoppingCartPage from "./components/ShoppingCartPage";
+import ProductListPage from "./components/ProductListPage";
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#0d69b4',
+    }
+  }
+});
+
+function App({ store }) {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Router>
+          <Switch>
+            <Route exact path="/" component={ProductListPage} />
+            <Route path="/carro" component={ShoppingCartPage} />
+          </Switch>
+        </Router>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
