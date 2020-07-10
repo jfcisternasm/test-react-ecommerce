@@ -18,6 +18,7 @@ const productsStore = (state = initialState, action) => {
                 ...state,
                 products: action.payload.amiibo.slice(0, 30).map(product => ({
                     ...product,
+                    id: product.head + product.tail,
                     price: prices[Math.floor(Math.random() * prices.length)]
                 })),
                 loading: false

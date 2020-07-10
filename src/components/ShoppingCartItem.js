@@ -1,7 +1,5 @@
 import React from 'react';
-import { Avatar, ListItemSecondaryAction, IconButton } from '@material-ui/core';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import { Avatar, ListItemSecondaryAction, IconButton, Button, ListItem, ListItemAvatar, ListItemText, Divider, Box, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -33,27 +31,35 @@ function ShoppingCartItem({ item }) {
         });
     }
     return (
-
-        <ListItem key={item.product.id}>
-            <Avatar src={item.product.image}>
-            </Avatar>
-            <ListItemText
-                primary={item.product.name}
-            />
-            <ListItemSecondaryAction>
-                <IconButton onClick={decrementItem} disabled={item.quantity <= 1}>
-                    <RemoveIcon></RemoveIcon>
+        <Box display="flex" alignItems="center">
+            <Box display="flex" flexDirection="column" justifyContent="center" style={{ marginRight: 12 }}>
+                <IconButton onClick={addItem} size="small">
+                    <AddIcon fontSize="inherit"></AddIcon>
                 </IconButton>
-                {item.quantity}
-                <IconButton onClick={addItem}>
-                    <AddIcon></AddIcon>
+                <Typography variant="body2" style={{ textAlign: 'center' }}>{item.quantity}</Typography>
+                <IconButton onClick={decrementItem} disabled={item.quantity <= 1} size="small">
+                    <RemoveIcon fontSize="inherit"></RemoveIcon>
                 </IconButton>
-
-                <IconButton onClick={removeItem}>
-                    <DeleteIcon></DeleteIcon>
-                </IconButton>
-            </ListItemSecondaryAction>
-        </ListItem>
+            </Box>
+            <Divider></Divider>
+            <Box flex="1">
+                <ListItem key={item.product.id}>
+                    <ListItemAvatar style={{ width: 'auto' }}>
+                        <Avatar src={item.product.image} variant="square">
+                        </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                        primary={item.product.name}
+                        secondary={('$' + item.product.price + '/un')}
+                    />
+                    <ListItemSecondaryAction>
+                        <IconButton onClick={removeItem}>
+                            <DeleteIcon></DeleteIcon>
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
+            </Box>
+        </Box>
     )
 }
 

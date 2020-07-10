@@ -24,13 +24,20 @@ const cartStore = (state = initialState, action) => {
                 }
             }
         case 'DECREMENT_PRODUCT':
-            return {
-                ...state,
-                items: state.items.map(item =>
-                    item.product.id === action.product.id ? {
-                        ...item,
-                        quantity: item.quantity > 0 ? item.quantity - 1 : item.quantity
-                    } : item)
+            if (state.items.find(item => (item.product.id == action.product.id && item.quantity > 1))) {
+                return {
+                    ...state,
+                    items: state.items.map(item =>
+                        item.product.id === action.product.id ? {
+                            ...item,
+                            quantity: item.quantity > 0 ? item.quantity - 1 : item.quantity
+                        } : item)
+                }
+            } else {
+                return {
+                    ...state,
+                    items: state.items.filter(item => item.product.id !== action.product.id)
+                }
             }
         case 'REMOVE_PRODUCT':
             return {

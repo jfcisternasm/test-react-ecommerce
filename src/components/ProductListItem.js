@@ -1,22 +1,12 @@
 import React from 'react';
-import { Typography, Card, CardMedia, CardContent, CardActions, Button } from '@material-ui/core';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import { useDispatch } from 'react-redux';
+import { Typography, Card, CardMedia, CardContent, CardActions, CardActionArea } from '@material-ui/core';
 
+import ProductListItemShoppingInfo from "./ProductListItemShoppingInfo";
 
 function ProductListItem({ product }) {
-
-    const dispatch = useDispatch();
-
-    const onClickAddToCart = () => {
-        dispatch({
-            type: 'ADD_PRODUCT',
-            product
-        });
-    }
     return (
         <Card>
-            <CardContent>
+            <CardActionArea>
                 <CardMedia
                     component="img"
                     alt={product.name}
@@ -36,13 +26,9 @@ function ProductListItem({ product }) {
                         ${product.price}
                     </Typography>
                 </CardContent>
-            </CardContent>
+            </CardActionArea>
             <CardActions>
-                <Button style={{ flex: 1 }} color="primary" startIcon={<AddShoppingCartIcon />} variant="contained" onClick={onClickAddToCart}>
-                    <Typography variant="body2" component="h2">
-                        Agregar
-                    </Typography>
-                </Button>
+                <ProductListItemShoppingInfo product={product}></ProductListItemShoppingInfo>
             </CardActions>
         </Card>
     )
